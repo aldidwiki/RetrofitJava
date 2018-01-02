@@ -1,12 +1,12 @@
 package com.aldidwikip.retrofitjava;
 
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -42,18 +42,20 @@ public class MainActivity extends AppCompatActivity {
                 MultipleResource resource = response.body();
                 String name = resource.name;
                 String location = resource.location;
-                String bio = resource.id;
+                String id = resource.id;
                 String avatar = resource.avatar_url;
 
                 Glide.with(MainActivity.this).load(avatar).into(avatarimg);
+                tvid.setText(id);
                 tvname.setText(name);
                 tvlocation.setText(location);
-                tvid.setText(bio);
+                Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<MultipleResource> call, Throwable t) {
                 call.cancel();
+                Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
             }
 
         });
